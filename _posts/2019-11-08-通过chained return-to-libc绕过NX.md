@@ -38,7 +38,7 @@ chmod 777 vuln
 
 #### 什么是Frame Faking?
 Frame Faking不是使用libc函数地址（本例中为seteuid）直接覆盖返回地址，而是使用`leave ret`指令来覆盖它。这样避免了参数的重叠，使多个function及参数值的叠放成为了可能，首先我们看一下需要构造的栈空间的结构
-![Image text](https://raw.githubusercontent.com/snappyJack/snappyjack.github.io/master/img/chanined-return-to-libc.png)
+![Image text](https://raw.githubusercontent.com/snappyJack1/snappyjack1.github.io/master/img/chanined-return-to-libc.png)
 
 leave指令
 ```

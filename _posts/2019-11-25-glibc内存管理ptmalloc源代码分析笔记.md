@@ -13,7 +13,7 @@ Heap和mmap区域都可以供用户自由使用，但是它在刚开始的时候
 ##### 什么是mmap
 
 mmap是一种内存映射文件的方法，即将一个文件或者其它对象映射到进程的地址空间，实现文件磁盘地址和进程虚拟地址空间中一段虚拟地址的一一对映关系。实现这样的映射关系后，进程就可以采用指针的方式读写操作这一段内存，而系统会自动回写脏页面到对应的文件磁盘上，即完成了对文件的操作而不必再调用read,write等系统调用函数。相反，内核空间对这段区域的修改也直接反映用户空间，从而可以实现不同进程间的文件共享。如下图所示：
-![Image text](https://raw.githubusercontent.com/snappyJack/snappyjack.github.io/master/img/mmap.png)
+![Image text](https://raw.githubusercontent.com/snappyJack1/snappyjack1.github.io/master/img/mmap.png)
 
 **mmap和常规文件操作的区别**
 
@@ -27,7 +27,7 @@ mmap是一种内存映射文件的方法，即将一个文件或者其它对象�
 --------------------------|
 Text Segment(ELF)         | 0x08048000
 --------------------------|
-Data Segment              | Example:static char* name = "snappyjack"
+Data Segment              | Example:static char* name = "snappyjack1"
 --------------------------|
 BSS Segment               |	Example:static char* userName
 --------------------------|
@@ -54,7 +54,7 @@ Kernel space              | 0xc0000000
 --------------------------|
 Text Segment(ELF)         | 0x0000000000400000
 --------------------------|
-Data Segment              | Example:static char* name = "snappyjack"
+Data Segment              | Example:static char* name = "snappyjack1"
 --------------------------|
 BSS Segment               |	Example:static char* userName
 --------------------------|
@@ -88,7 +88,7 @@ C语言的动态内存分配基本函数是malloc()，在Linux上的实现是通
 ##### chunk的组织
 用户调用free()函数释放掉的内存也并不是立即就归还给操作系统，相反，它们也会被表示为一个chunk.堆块与空闲的堆块如下:
 
-![Image text](https://raw.githubusercontent.com/snappyJack/snappyjack.github.io/master/img/Protostar教程之unlink_1.png)
+![Image text](https://raw.githubusercontent.com/snappyJack1/snappyjack1.github.io/master/img/Protostar教程之unlink_1.png)
 
  
 简短的提醒:dlmalloc将free chunks(右边的图)使用双向链表串起来,free chunk中每个区域都有它的意义:
@@ -117,7 +117,7 @@ Chunk的第二个域倒数第三个位为A，表示该chunk属于主分配区或
 
 **Bins**
 如下图所示,一个竖线的一条,叫一个bin,Ptmalloc一共维护了128个bin，并使用一个数组来存储这些bin
-![Image text](https://raw.githubusercontent.com/snappyJack/snappyjack.github.io/master/img/Bins.png)
+![Image text](https://raw.githubusercontent.com/snappyJack1/snappyjack1.github.io/master/img/Bins.png)
 数组中的第一个为unsorted bin，数组中从2开始编号的前64个bin称为small bins，同一个small bin中的chunk具有相同的大小。两个相邻的small bin中的chunk大小相差8bytes。small bins中的chunk按照最近使用顺序进行排列，最后释放的chunk被链接到链表的头部，而申请chunk是从链表尾部开始，这样，每一个chunk 都有相同的机会被ptmalloc选中。Small bins后面的bin被称作large bins。large bins中的**每一个bin**分别包含了一个给定范围内的chunk，其中的chunk按大小序排列。相同大小的chunk同样按照最近使用顺序排列。ptmalloc使用“smallest-first，best-fit”原则在空闲large bins中查找合适的chunk。
 
 当空闲的chunk被链接到bin中的时候，ptmalloc会把表示该chunk是否处于使用中的标志P设为0（注意，这个标志实际上处在下一个chunk中），同时ptmalloc还会检查它前后的chunk是否也是空闲的，如果是的话，ptmalloc会首先把它们合并为一个大的chunk，然后将合并后的chunk放到unstored bin中。要注意的是，并不是所有的chunk被释放后就立即被放到bin中。ptmalloc为了提高分配的速度，会把一些小的的chunk先放到一个叫做fast bins的容器内。

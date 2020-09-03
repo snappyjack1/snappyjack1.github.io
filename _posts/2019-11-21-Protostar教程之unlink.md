@@ -54,7 +54,7 @@ gcc -m32 -g -z execstack vuln.c -o vuln
 
 首先我们看一下分配的堆块与空闲的堆块
 
-![Image text](https://raw.githubusercontent.com/snappyJack/snappyjack.github.io/master/img/Protostar教程之unlink_1.png)
+![Image text](https://raw.githubusercontent.com/snappyJack1/snappyjack1.github.io/master/img/Protostar教程之unlink_1.png)
 
  
 简短的提醒:dlmalloc将free chunks(右边的图)使用双向链表串起来,free chunk中每个区域都有它的意义:

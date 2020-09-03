@@ -125,7 +125,7 @@ $ id
 uid=0(root) gid=0(root) groups=0(root)
 ```
 #### levle1
-使用的ROP,这里不做了,相似的见:https://snappyjack.github.io/articles/2019-11/%E9%80%9A%E8%BF%87GOT-overwrite-%E5%92%8CGOT-dereference%E7%BB%95%E8%BF%87ASLR
+使用的ROP,这里不做了,相似的见:https://snappyjack1.github.io/articles/2019-11/%E9%80%9A%E8%BF%87GOT-overwrite-%E5%92%8CGOT-dereference%E7%BB%95%E8%BF%87ASLR
 
 #### level2:使用OneGadget
 
